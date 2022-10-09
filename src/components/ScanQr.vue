@@ -35,10 +35,12 @@ import QrScanner from "qr-scanner"
 export default {
     name:"ScanQrVue",
     created() {
+        this.$isLoading(true)
        setTimeout(() => {
         this.start =false
         this.doScan()
-       }, 5000);
+        this.$isLoading(false)
+       }, 2000);
 
     },
     data() {
@@ -82,6 +84,6 @@ export default {
 video{
     width: 100%;
     height: 100%;
-    background:dark;
+    background:#0000;
 }
 </style>

@@ -77,6 +77,14 @@ export default {
     created(){
         
     },
+    mounted() {
+        setTimeout(() => {
+            this.$isLoading(false)
+        }, 1500);
+    },
+    beforeMount() {
+        this.$isLoading(true)
+    },
     methods: {
         Generate(){
             QRCode.toDataURL(this.qr.data,{
@@ -90,7 +98,8 @@ export default {
                 },
                 version: 2
             },(err,url)=>{
-                console.log(url)
+                this.w = this.qr.format
+                this.h = this.qr.format
                 return !err?this.result = url:null
             })
         },
