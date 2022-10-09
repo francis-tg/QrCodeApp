@@ -20,6 +20,9 @@
   <main class="container">
     <QrCode/>
   </main>
+  <footer>
+    <p class="text-center text-muted">Copyright &copy; Cisco_dev</p>
+  </footer>
 </template>
 
 <script>
