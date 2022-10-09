@@ -11,9 +11,11 @@
     "bootstrap": "^5.2.2",
     "bootstrap-vue": "^2.22.0",
     "core-js": "^3.8.3",
+    "qr-scanner": "^1.4.1",
     "qrcode": "^1.5.1",
     "register-service-worker": "^1.7.2",
     "vue": "^3.2.40",
+    "vue-router": "^4.0.3",
     "vuex": "^4.0.0"
   },
   "devDependencies": {
@@ -22,6 +24,7 @@
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-plugin-pwa": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "eslint": "^7.32.0",
