@@ -3,7 +3,7 @@
 	"dir": "auto",
 	"name": "QrCodeApp",
 	"short_name": "QrCodeApp",
-	"description": "",
+	"description": "Application de génération de QrCode et de lecture de QrCode",
 	"theme_color": "#4cb7d9",
 	"background_color": "#daf2f2",
 	"display": "standalone",
@@ -19,11 +19,6 @@
 	},
 	{
 		"src": "/img/icons/icon-96x96.png",
-		"sizes": "96x96",
-		"type": "image/png",
-		"purpose": "maskable"
-	},{
-		"src": "/img/icons/icon-144x144.png",
 		"sizes": "96x96",
 		"type": "image/png",
 		"purpose": "maskable"
