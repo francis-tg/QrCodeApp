@@ -1,91 +1,125 @@
 <template>
-    <div class="">
-        <h2>Scan</h2>
+  <div class="container">
+    <h2 class="text-center mt-4">QR Scanner</h2>
 
-        <div class="row">
-            <div class="col-md-6">
-                <button v-if="!start" class="btn btn-warning mt-3" @click="startScan()">
-                    Scanner
-                </button>
-                <button v-if="start" class="btn btn-warning mb-0" @click="stopScan()">
-                    Arrêter
-                </button>
-                <video id="qr-video" class="mb-5"></video>
-            </div>
-            <div class="col-md-6">
-                <!-- <div v-if="result" class="alert alert-success" role="alert">
-                    {{result}}
-                </div> -->
-                <div class="card mt-5">
-                    <div class="card-header text-center">
-                        Résultat
-                    </div>
-                    <div class="card-body">
-                        {{result}}
-                    </div>
-                </div>
-            </div>
-
-            
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <!-- Scanner Controls -->
+        <div class="text-center">
+          <button v-if="!start" class="btn btn-primary mb-3" @click="startScan">
+            Start Scanner
+          </button>
+          <button v-if="start" class="btn btn-danger mb-3" @click="stopScan">
+            Stop Scanner
+          </button>
         </div>
-        
+        <!-- Video Element -->
+        <video id="qr-video" class="rounded border border-secondary mb-3"></video>
+      </div>
+      <div class="col-md-6">
+        <!-- Scan Result Display -->
+        <div class="card">
+          <div class="card-header text-center bg-primary text-white">
+            Scan Result
+          </div>
+          <div class="card-body">
+            <p v-if="result">{{ result }}</p>
+            <p v-if="!result" class="text-muted">No result yet.</p>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-import QrScanner from "qr-scanner"
+import QrScanner from "qr-scanner";
+
 export default {
-    name:"ScanQrVue",
-    created() {
-        this.$isLoading(true)
-       setTimeout(() => {
-        this.start =false
-        this.doScan()
-        this.$isLoading(false)
-       }, 2000);
-
+  name: "ScanQrVue",
+  data() {
+    return {
+      qrScanner: null,
+      result: "",
+      start: false,
+    };
+  },
+  methods: {
+    doScan() {
+      const video = document.getElementById("qr-video");
+      this.qrScanner = new QrScanner(video, (result) => {
+        this.result = result.data;
+      }, {
+        highlightScanRegion: true,
+        highlightCodeOutline: true,
+      });
     },
-    data() {
-        return {
-            qrScanner:"",
-            result:"",
-            start:true
-        }
+    startScan() {
+      this.start = true;
+      this.qrScanner.start();
     },
-    methods: {
-        doScan(){
-            const video = document.getElementById("qr-video")
-        // console.log(video)
-         this.qrScanner = new QrScanner(video, (result)=>{
-            return this.result = result.data
-         },{
-            highlightScanRegion: true,
-            highlightCodeOutline: true,
-         })
-
-        //  this.qrScanner.start()
-        
-        },
-        startScan(){
-        this.start = true
-        this.qrScanner.start()
+    stopScan() {
+      this.start = false;
+      this.qrScanner.stop();
+      this.result = "";
     },
-    stopScan(){
-        this.start = false
-        this.qrScanner.stop()
-        return this.result =""
-    },
-    },
-    
-    unmounted() {
-       this.qrScanner.stop()
-    },
-}
+  },
+  mounted() {
+    this.doScan();
+  },
+  unmounted() {
+    if (this.qrScanner) {
+      this.qrScanner.stop();
+    }
+  },
+};
 </script>
+
 <style scoped>
-video{
-    width: 100%;
-    height: 100%;
-    background:#0000;
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+video {
+  width: 100%;
+  height: auto;
+  background: #000;
+}
+
+.card {
+  border-radius: 0.5rem;
+}
+
+.card-header {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-4 {
+  margin-top: 1.5rem;
+}
+
+.mb-3 {
+  margin-bottom: 1rem;
+}
+
+.text-muted {
+  color: #6c757d;
 }
 </style>
