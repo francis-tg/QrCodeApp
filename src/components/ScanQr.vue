@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <h2>Scanner votre QrCode</h2>
+        <h2>Scan</h2>
 
         <div class="row">
             <div class="col-md-6">
