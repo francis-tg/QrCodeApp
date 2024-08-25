@@ -1,91 +1,107 @@
 <template>
-    <div class="">
-        <h2>Scanner votre QrCode</h2>
-
-        <div class="row">
-            <div class="col-md-6">
-                <button v-if="!start" class="btn btn-warning mt-3" @click="startScan()">
-                    Scanner
-                </button>
-                <button v-if="start" class="btn btn-warning mb-0" @click="stopScan()">
-                    Arrêter
-                </button>
-                <video id="qr-video" class="mb-5"></video>
+    <div class="container mx-auto px-4 py-8 sm:py-12 lg:py-24">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 text-center uppercase">Scanner votre QR Code</h2>
+      
+      <div class="flex flex-col lg:flex-row items-center justify-center gap-8">
+        <div class="w-full lg:w-1/2 flex flex-col items-center">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md mb-4" v-if="!start">
+            <button class="btn w-full h-16 btn-warning" @click="startScan">
+              <Fullscreen class="mr-2" size="24" />
+              <span>Scanner</span>
+            </button>
+            <div class="relative h-16">
+              <input type="file" id="qr-image" @change="onGetImage" class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer">
+              <div class="absolute inset-0 flex items-center justify-center btn btn-warning">
+                <Camera class="mr-2" size="24" />
+                <span>Charger une image</span>
+              </div>
             </div>
-            <div class="col-md-6">
-                <!-- <div v-if="result" class="alert alert-success" role="alert">
-                    {{result}}
-                </div> -->
-                <div class="card mt-5">
-                    <div class="card-header text-center">
-                        Résultat
-                    </div>
-                    <div class="card-body">
-                        {{result}}
-                    </div>
-                </div>
-            </div>
-
-            
+          </div>
+          <button v-if="start" class="btn w-full max-w-md btn-warning mb-4" @click="stopScan">
+            Arrêter
+          </button>
+          <video id="qr-video" class="w-full max-w-md aspect-square object-cover rounded-lg shadow-lg"></video>
         </div>
         
+        <div class="w-full lg:w-1/2 mt-8 lg:mt-0">
+          <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
+            <div class="card-header bg-gray-200 text-center py-3 font-semibold">
+              Résultat
+            </div>
+            <div class="card-body p-4">
+              <p class="text-gray-700 break-words">{{ result || 'Aucun résultat' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</template>
-
-<script>
-import QrScanner from "qr-scanner"
-export default {
-    name:"ScanQrVue",
-    created() {
-        this.$isLoading(true)
-       setTimeout(() => {
-        this.start =false
-        this.doScan()
-        this.$isLoading(false)
-       }, 2000);
-
+  </template>
+  
+  <script>
+  import QrScanner from "qr-scanner";
+  import { Camera, Fullscreen } from 'lucide-vue-next';
+  
+  export default {
+    name: "ScanQrVue",
+    components: {
+      Camera,
+      Fullscreen
     },
     data() {
-        return {
-            qrScanner:"",
-            result:"",
-            start:true
-        }
+      return {
+        qrScanner: null,
+        result: "",
+        start: false,
+      }
+    },
+    mounted() {
+      this.$isLoading(true);
+      this.initializeScanner();
+      setTimeout(() => {
+        this.$isLoading(false);
+      }, 2000);
     },
     methods: {
-        doScan(){
-            const video = document.getElementById("qr-video")
-        // console.log(video)
-         this.qrScanner = new QrScanner(video, (result)=>{
-            return this.result = result.data
-         },{
+      initializeScanner() {
+        const video = document.getElementById("qr-video");
+        this.qrScanner = new QrScanner(video, 
+          result => this.result = result.data,
+          {
             highlightScanRegion: true,
             highlightCodeOutline: true,
-         })
-
-        //  this.qrScanner.start()
-        
-        },
-        startScan(){
-        this.start = true
-        this.qrScanner.start()
+          }
+        );
+      },
+      startScan() {
+        this.start = true;
+        this.qrScanner.start();
+      },
+      stopScan() {
+        this.start = false;
+        this.qrScanner.stop();
+        this.result = "";
+      },
+      onGetImage(event) {
+        const file = event.target.files[0];
+        if (file) {
+          QrScanner.scanImage(file)
+            .then(result => this.result = result)
+            .catch(error => console.error(error || 'Aucun QR code trouvé.'));
+        }
+      }
     },
-    stopScan(){
-        this.start = false
-        this.qrScanner.stop()
-        return this.result =""
+    beforeUnmount() {
+      if (this.qrScanner) {
+        this.qrScanner.destroy();
+      }
     },
-    },
-    
-    unmounted() {
-       this.qrScanner.stop()
-    },
-}
-</script>
-<style scoped>
-video{
+  }
+  </script>
+  
+  <style scoped>
+  video {
     width: 100%;
     height: 100%;
-    background:#0000;
-}
-</style>
+    background: #0000;
+  }
+  </style>
