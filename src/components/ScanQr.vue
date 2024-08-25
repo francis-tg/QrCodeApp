@@ -17,7 +17,7 @@
               </div>
             </div>
           </div>
-          <button v-if="start" class="btn w-full max-w-md btn-warning mb-4" @click="stopScan">
+          <button v-if="start" class="btn w-full max-w-md btn-error mb-4" @click="stopScan">
             Arrêter
           </button>
           <video id="qr-video" class="w-full max-w-md aspect-square object-cover rounded-lg shadow-lg"></video>
