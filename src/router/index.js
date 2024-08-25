@@ -1,12 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ScanView from '../components/ScanQr.vue'
+import GenerateView from '@/views/GenerateView.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
     component: HomeView
+  }, 
+  {
+    path: '/generate',
+    name: 'generate',
+    component: GenerateView
   }, 
   {
     path: '/scan',
