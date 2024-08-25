@@ -1,7 +1,6 @@
 <template>
-    <div class="container mx-auto px-4 py-8 sm:py-12 lg:py-24">
+    <div class="container mx-auto px-4 py-24 sm:py-12 lg:py-24">
       <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 text-center uppercase">Scanner votre QR Code</h2>
-      
       <div class="flex flex-col lg:flex-row items-center justify-center gap-8">
         <div class="w-full lg:w-1/2 flex flex-col items-center">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md mb-4" v-if="!start">
