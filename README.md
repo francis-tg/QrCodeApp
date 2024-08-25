@@ -1,24 +1,8 @@
 # qrcode-app
 
-## Project setup
-```
-npm install
-```
+## V2 of project
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+<img src='./imagev2.0.1.png'/>
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+<img src='./imagev2.0.1-1.png'/>
+<img src='./imagev2.0.1-2.png'/>
