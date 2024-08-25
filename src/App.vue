@@ -42,17 +42,20 @@
         <router-link to="/scan" class="btn">Scanner</router-link>
       </div>
     </div>
-    
-  
+
+
 
   </header>
-  <main class="container">
+  <main class="">
     <router-view></router-view>
-
+    
   </main>
-  <footer>
-    <p class="text-center text-muted">Copyright &copy; Cisco_dev</p>
-  </footer>
+  <footer class="footer footer-center bg-base-300 w-full text-base-content p-4">
+      <aside>
+        <p>Copyright © {{ new Date().getFullYear() }} - All right reserved by <a href="https://github.com/francis-tg"
+            class="underline text-primary">CISCO DEV</a></p>
+      </aside>
+    </footer>
   <nav class="app-nav">
     <ul>
       <li @click="goTo('/')"><i class="fas fa-home    "></i></li>
