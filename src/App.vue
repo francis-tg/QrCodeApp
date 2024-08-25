@@ -50,7 +50,7 @@
     <router-view></router-view>
     
   </main>
-  <footer class="footer footer-center bg-base-300 w-full text-base-content p-4">
+  <footer class="footer footer-center bg-transparent w-full text-base-content p-4">
       <aside>
         <p>Copyright © {{ new Date().getFullYear() }} - All right reserved by <a href="https://github.com/francis-tg"
             class="underline text-primary">CISCO DEV</a></p>
