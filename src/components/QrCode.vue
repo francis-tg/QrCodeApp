@@ -87,7 +87,7 @@ export default {
         Generate() {
             
             QRCode.toDataURL(this.qr.data, {
-                mode: 'alphanumeric',
+                //mode: 'alphanumeric',
                 errorCorrectionLevel: 'H',
                 type: 'image/jpeg',
                 quality: 1,
@@ -96,10 +96,11 @@ export default {
                     dark: this.qr.color,
                     light: this.qr.back_color
                 },
-                version: 2
+                version: 5
             }, (err, url) => {
                 this.w = this.qr.format
                 this.h = this.qr.format
+                console.log(err)
                 return !err ? this.result = url : null
             })
         },
